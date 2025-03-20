@@ -10,13 +10,14 @@ public abstract class Kontener:IKontener
     public double WysokoscKontenera { get; set; }
     public double MasaKontenera { get; set; }
     public double GlembokoscKontenera { get; set; }
-    
-    public Kontener(double masaLadunku, double masaKontenera, double wysokoscKontenera, double glembokoscKontenera, string typ)
+    public double MaxLadownosc{get;set;}
+    public Kontener( double masaKontenera, double wysokoscKontenera, double glembokoscKontenera, double maxLadownosc,string typ)
     {
-        MasaLadunku = masaLadunku;
+        MasaLadunku = 0;
         WysokoscKontenera = wysokoscKontenera;
         MasaKontenera = masaKontenera;
         GlembokoscKontenera = glembokoscKontenera;
+        MaxLadownosc = maxLadownosc;
         this.typ = typ;
         NrSeryjny+="KON-";
         NrSeryjny+=this.typ+"-";
@@ -28,7 +29,19 @@ public abstract class Kontener:IKontener
 
 
 
-    public abstract void Oproznij();
+    public virtual void Oproznij()
+    {
+        MasaLadunku = 0;
+    }
 
-    public abstract void Zaladuj(double masa);
+    public virtual void Zaladuj(double masa)
+    {
+        
+        
+        if (MaxLadownosc<MasaLadunku+masa)
+        {
+            throw new OverfillException();
+        }
+       
+    }
 }
