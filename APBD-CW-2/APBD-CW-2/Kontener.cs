@@ -34,6 +34,7 @@ public abstract class Kontener:IKontener
         MasaLadunku = 0;
     }
 
+    
     public virtual void Zaladuj(double masa)
     {
         
