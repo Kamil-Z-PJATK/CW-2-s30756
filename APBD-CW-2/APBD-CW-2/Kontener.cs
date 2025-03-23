@@ -45,4 +45,14 @@ public abstract class Kontener:IKontener
         }
        
     }
+
+    public override string ToString()
+    {
+        return NrSeryjny + " " + MasaLadunku + "/" + MaxLadownosc;
+    }
+
+    public virtual void Zaladuj(double masa, string bananas)
+    {
+        ;
+    }
 }

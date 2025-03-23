@@ -43,4 +43,9 @@ public class KontenerL:Kontener, IHazardNotifier
         Console.WriteLine("HazardNotifie "+NrSeryjny);
         
     }
+
+    public override string ToString()
+    {
+        return base.ToString() +" "+ CzyBezpieczny;
+    }
 }

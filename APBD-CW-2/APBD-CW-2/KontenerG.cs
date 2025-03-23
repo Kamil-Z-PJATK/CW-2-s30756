@@ -11,10 +11,17 @@ public class KontenerG:Kontener,IHazardNotifier
     {
         MasaLadunku*=0.05;
     }
-    
+
+    public override void Zaladuj(double masa)
+    {
+        base.Zaladuj(masa);
+        MasaLadunku+=masa;
+    }
 
     public void HazardNotifie()
     {
         Console.WriteLine("HazardNotifie "+NrSeryjny);
     }
+
+    
 }
