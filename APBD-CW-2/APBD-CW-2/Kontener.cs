@@ -51,8 +51,5 @@ public abstract class Kontener:IKontener
         return NrSeryjny + " " + MasaLadunku + "/" + MaxLadownosc;
     }
 
-    public virtual void Zaladuj(double masa, string bananas)
-    {
-        ;
-    }
+
 }

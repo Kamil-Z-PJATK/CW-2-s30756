@@ -39,17 +39,11 @@ public class KontenerC: Kontener
         
     }
 
-    public override void Zaladuj(double masa, string typ)
+    public  void Zaladuj(double masa)
     {
         base.Zaladuj(masa);
-        if (typ.Equals(TypProdutu))
-        {
             MasaLadunku += masa;
-        }
-        else
-        {
-            Console.WriteLine("Niepoprawny typ produktu");
-        }
+            
     }
 
     public override string ToString()

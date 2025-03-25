@@ -7,29 +7,32 @@ public class Kontenerowiec
     public double MaxMasa{get;set;}
     public int MaxKon{get;set;}
 
+    public string Nazwa{get;set;}
     private double _obecnaMasa;
 
-    public Kontenerowiec(double Predkosc, double MaxMasa, int MaxKon)
+    public Kontenerowiec(double predkosc, double maxMasa, int maxKon, string nazwa)
     {
-        this.Predkosc = Predkosc;
-        this.MaxMasa = MaxMasa;
-        this.MaxKon = MaxKon;
+        this.Predkosc = predkosc;
+        this.MaxMasa = maxMasa;
+        this.MaxKon = maxKon;
         kontenerList = new List<Kontener>();
         _obecnaMasa = 0;
+        Nazwa = nazwa;
+        
     }
 
-    public void UssunKontener(Kontener kontener)
+    public void UsunKontener(Kontener kontener)
     {
         this.kontenerList.Remove(kontener);
     }
 
-    public void ZamienKontener(Kontener kontener, Kontener kontener2)
+    public void ZamienKontener(string nr1, Kontener kontener)
     {
         for (int i = 0; i < this.kontenerList.Count; i++)
         {
-            if (kontenerList[i].NrSeryjny == kontener.NrSeryjny)
+            if (kontenerList[i].NrSeryjny == nr1)
             {
-                kontenerList[i] = kontener2;
+                kontenerList[i] = kontener;
                 break;
             }
         }
@@ -80,6 +83,26 @@ public class Kontenerowiec
                 kontenerList.AddRange(kontenerl);
             }
         }
+    }
+
+    public void NaInnyStatek(Kontenerowiec kontenerowiec, string nrSeryjny)
+    {
+        
+        for (int i = 0; i < kontenerList.Count(); i++)
+        {
+            if( kontenerList[i].NrSeryjny == nrSeryjny)
+            {
+                kontenerowiec.Zaladuj(kontenerList[i]);
+                kontenerList.RemoveAt(i);
+                break;
+            }
+        }
+        
+    }
+
+    public override string ToString()
+    {
+        return Nazwa + " (speed= "+Predkosc+" max Container number= "+MaxKon + " max Weight = "+MaxMasa+" )";
     }
     
     
