@@ -22,7 +22,7 @@ Console.WriteLine(kontener.MasaLadunku);
  Console.WriteLine(kontener3.ToString());
  Console.WriteLine("================================");
  Kontenerowiec kontenerowiec1 = new Kontenerowiec(40, 1000, 70, "Statek1");
- Kontenerowiec kontenerowiec2 = new Kontenerowiec(40, 100, 5, "Statek2");
+ Kontenerowiec kontenerowiec2 = new Kontenerowiec(40, 1, 5, "Statek2");
  kontenerowiec1.Zaladuj(kontener);
  kontenerowiec1.Zaladuj(kontener2);
  kontenerowiec1.Zaladuj(kontener3);
@@ -55,6 +55,31 @@ Console.WriteLine("============================");
   throw;
  }
 kontenerowiec2.ShowList();
+kontenerowiec1.NaInnyStatek(kontenerowiec2,"KON-C-3");
+Console.WriteLine("===============================");
+Kontener konMax= new KontenerL(10,30,10,10000,false);
+konMax.Zaladuj(5000);
+kontenerowiec2.ShowList();
+Console.WriteLine("===============================");
+try
+{
+kontenerowiec2.Zaladuj(konMax);
+}
+catch (OverflowException e)
+{
+ Console.WriteLine(e);
  
+}
+
+Console.WriteLine("=============================");
+Kontener nkon= new KontenerL(10,30,10,10000,true);
+nkon.Zaladuj(100);
+Kontener nkon2 = new KontenerG(10,60,10,50);
+nkon.Zaladuj(10);
+List<Kontener> konList = new List<Kontener>();
+konList.Add(nkon);
+konList.Add(nkon2);
+kontenerowiec1.Zaladuj(konList);
+kontenerowiec1.ShowList();
 
  

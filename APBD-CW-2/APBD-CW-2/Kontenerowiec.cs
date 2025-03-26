@@ -3,10 +3,7 @@
 public class Kontenerowiec:IKontenerowiec
 {
     private List<Kontener> _kontenerList;
-    public List<Kontener> KontenerList
-    {
-        get => _kontenerList;
-    }
+   
     public double Predkosc{get;set;}
     public double MaxMasa{get;set;}
     public int MaxKon{get;set;}
@@ -18,9 +15,9 @@ public class Kontenerowiec:IKontenerowiec
 
     public Kontenerowiec(double predkosc, double maxMasa, int maxKon, string nazwa)
     {
-        this.Predkosc = predkosc;
-        this.MaxMasa = maxMasa;
-        this.MaxKon = maxKon;
+        Predkosc = predkosc;
+        MaxMasa = maxMasa;
+        MaxKon = maxKon;
         _kontenerList = new List<Kontener>();
         _obecnaMasa = 0;
         Nazwa = nazwa;
@@ -49,15 +46,8 @@ public class Kontenerowiec:IKontenerowiec
 
     public void Zaladuj(Kontener kontener) 
     {
-        // _obecnaMasa = 0;
-        // for (int i = 0; i < _kontenerList.Count; i++)
-        // {
-        //     _obecnaMasa += _kontenerList[i].MasaLadunku;
-        //     _obecnaMasa += _kontenerList[i].MasaKontenera;
-        // }
-        // _obecnaMasa /= 1000;
-        
-        if (MaxMasa<=_obecnaMasa+(kontener.MasaLadunku+kontener.MasaKontenera)/1000)
+       
+        if (MaxMasa<=(_obecnaMasa+(kontener.MasaLadunku+kontener.MasaKontenera)/1000))
         {
             throw new OverflowException();
         }
