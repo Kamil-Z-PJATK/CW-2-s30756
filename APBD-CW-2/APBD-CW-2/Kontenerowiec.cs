@@ -1,12 +1,18 @@
 ﻿namespace APBD_CW_2;
 
-public class Kontenerowiec
+public class Kontenerowiec:IKontenerowiec
 {
-    private List<Kontener> kontenerList;
+    private List<Kontener> _kontenerList;
+    public List<Kontener> KontenerList
+    {
+        get => _kontenerList;
+    }
     public double Predkosc{get;set;}
     public double MaxMasa{get;set;}
     public int MaxKon{get;set;}
-
+    
+    
+    
     public string Nazwa{get;set;}
     private double _obecnaMasa;
 
@@ -15,7 +21,7 @@ public class Kontenerowiec
         this.Predkosc = predkosc;
         this.MaxMasa = maxMasa;
         this.MaxKon = maxKon;
-        kontenerList = new List<Kontener>();
+        _kontenerList = new List<Kontener>();
         _obecnaMasa = 0;
         Nazwa = nazwa;
         
@@ -23,37 +29,44 @@ public class Kontenerowiec
 
     public void UsunKontener(Kontener kontener)
     {
-        this.kontenerList.Remove(kontener);
+        _obecnaMasa -=(kontener.MasaKontenera+kontener.MasaLadunku)/1000;
+        this._kontenerList.Remove(kontener);
     }
 
     public void ZamienKontener(string nr1, Kontener kontener)
     {
-        for (int i = 0; i < this.kontenerList.Count; i++)
+        for (int i = 0; i < this._kontenerList.Count; i++)
         {
-            if (kontenerList[i].NrSeryjny == nr1)
+            if (_kontenerList[i].NrSeryjny == nr1)
             {
-                kontenerList[i] = kontener;
+                _kontenerList[i] = kontener;
                 break;
             }
         }
 
-        Console.WriteLine("Podano niepoprawny kontener");
+       
     }
 
-    public void Zaladuj(Kontener kontener)
+    public void Zaladuj(Kontener kontener) 
     {
-        _obecnaMasa = 0;
-        for (int i = 0; i < kontenerList.Count; i++)
+        // _obecnaMasa = 0;
+        // for (int i = 0; i < _kontenerList.Count; i++)
+        // {
+        //     _obecnaMasa += _kontenerList[i].MasaLadunku;
+        //     _obecnaMasa += _kontenerList[i].MasaKontenera;
+        // }
+        // _obecnaMasa /= 1000;
+        
+        if (MaxMasa<=_obecnaMasa+(kontener.MasaLadunku+kontener.MasaKontenera)/1000)
         {
-            _obecnaMasa += kontenerList[i].MasaLadunku;
-            _obecnaMasa += kontenerList[i].MasaKontenera;
+            throw new OverflowException();
         }
-        _obecnaMasa /= 1000;
-        if (MaxMasa>=_obecnaMasa+(kontener.MasaLadunku+kontener.MasaKontenera)/1000)
+        else
         {
-            if (MaxKon>=kontenerList.Count+1)
+            _obecnaMasa += (kontener.MasaLadunku + kontener.MasaKontenera) / 1000;
+            if (MaxKon>=_kontenerList.Count+1)
             {
-                kontenerList.Add(kontener);
+                _kontenerList.Add(kontener);
             }
         }
     }
@@ -61,39 +74,29 @@ public class Kontenerowiec
 
     public void Zaladuj(List<Kontener> kontenerl)
     {
-        _obecnaMasa = 0;
-        for (int i = 0; i < kontenerList.Count; i++)
+        try
         {
-            _obecnaMasa += kontenerList[i].MasaLadunku;
-            _obecnaMasa += kontenerList[i].MasaKontenera;
-        }
-
-        double masaDodana = 0;
-        for (int i = 0; i < kontenerl.Count(); i++)
-        {
-            masaDodana += kontenerl[i].MasaLadunku;
-            masaDodana+= kontenerl[i].MasaKontenera;
-        }
-        _obecnaMasa /= 1000;
-        masaDodana /= 1000;
-        if (MaxMasa >= masaDodana+_obecnaMasa)
-        {
-            if (MaxKon>=kontenerl.Count+kontenerList.Count)
+            foreach (var j in kontenerl)
             {
-                kontenerList.AddRange(kontenerl);
+                Zaladuj(j);
             }
+        }
+        catch (OverfillException e)
+        {
+            Console.WriteLine(e);
+            throw;
         }
     }
 
-    public void NaInnyStatek(Kontenerowiec kontenerowiec, string nrSeryjny)
+    public void NaInnyStatek(IKontenerowiec kontenerowiec, string nrSeryjny)
     {
         
-        for (int i = 0; i < kontenerList.Count(); i++)
+        for (int i = 0; i < _kontenerList.Count(); i++)
         {
-            if( kontenerList[i].NrSeryjny == nrSeryjny)
+            if( _kontenerList[i].NrSeryjny == nrSeryjny)
             {
-                kontenerowiec.Zaladuj(kontenerList[i]);
-                kontenerList.RemoveAt(i);
+                kontenerowiec.Zaladuj(_kontenerList[i]);
+                _kontenerList.RemoveAt(i);
                 break;
             }
         }
@@ -103,6 +106,15 @@ public class Kontenerowiec
     public override string ToString()
     {
         return Nazwa + " (speed= "+Predkosc+" max Container number= "+MaxKon + " max Weight = "+MaxMasa+" )";
+    }
+
+    public void ShowList()
+    {
+        foreach (var j in _kontenerList)
+        {
+            Console.WriteLine(j);
+            
+        }
     }
     
     

@@ -39,10 +39,10 @@ public class KontenerC: Kontener
         
     }
 
-    public  void Zaladuj(double masa)
+    public  override void Zaladuj(double masa)
     {
         base.Zaladuj(masa);
-            MasaLadunku += masa;
+        MasaLadunku += masa;
             
     }
 

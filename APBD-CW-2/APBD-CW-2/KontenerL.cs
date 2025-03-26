@@ -41,7 +41,7 @@ public class KontenerL:Kontener, IHazardNotifier
     public void HazardNotifie()
     {
         Console.WriteLine("HazardNotifie "+NrSeryjny);
-        
+        System.Threading.Thread.Sleep(1000);
     }
 
     public override string ToString()
