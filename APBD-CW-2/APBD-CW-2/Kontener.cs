@@ -43,6 +43,11 @@ public abstract class Kontener:IKontener
         {
             throw new OverfillException();
         }
+        else
+        {
+            MasaLadunku += masa;
+        }
+        
        
     }
 

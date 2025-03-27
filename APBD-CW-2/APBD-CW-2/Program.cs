@@ -52,7 +52,7 @@ Console.WriteLine("============================");
  catch (OverfillException e)
  {
   Console.WriteLine(e);
-  throw;
+  
  }
 kontenerowiec2.ShowList();
 kontenerowiec1.NaInnyStatek(kontenerowiec2,"KON-C-3");
@@ -65,7 +65,7 @@ try
 {
 kontenerowiec2.Zaladuj(konMax);
 }
-catch (OverflowException e)
+catch (OverfillException e)
 {
  Console.WriteLine(e);
  
@@ -81,5 +81,25 @@ konList.Add(nkon);
 konList.Add(nkon2);
 kontenerowiec1.Zaladuj(konList);
 kontenerowiec1.ShowList();
+Console.WriteLine("==============================");
+Kontener nkon3= new KontenerG(10,60,10,50);
+nkon.Zaladuj(10);
+Kontener nkon4= new KontenerC(10,60, 10, 51, "Fish", 2);
+nkon.Zaladuj(10);
+
+try
+{
+ kontenerowiec2.Zaladuj(nkon3);
+ kontenerowiec2.Zaladuj(nkon4);
+
+}
+catch (Exception e)
+{
+ Console.WriteLine(e);
+
+}
+kontenerowiec2.ShowList();
+Console.WriteLine("==================================");
+
 
  

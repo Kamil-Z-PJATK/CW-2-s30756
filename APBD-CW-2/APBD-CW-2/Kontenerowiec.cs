@@ -47,9 +47,9 @@ public class Kontenerowiec:IKontenerowiec
     public void Zaladuj(Kontener kontener) 
     {
        
-        if (MaxMasa<=(_obecnaMasa+(kontener.MasaLadunku+kontener.MasaKontenera)/1000))
+        if (MaxMasa<(_obecnaMasa+(kontener.MasaLadunku+kontener.MasaKontenera)/1000) || MaxKon < _kontenerList.Count+1)
         {
-            throw new OverflowException();
+            throw new OverfillException();
         }
         else
         {

@@ -38,13 +38,7 @@ public class KontenerC: Kontener
         
         
     }
-
-    public  override void Zaladuj(double masa)
-    {
-        base.Zaladuj(masa);
-        MasaLadunku += masa;
-            
-    }
+    
 
     public override string ToString()
     {

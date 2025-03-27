@@ -12,7 +12,10 @@ public class KontenerL:Kontener, IHazardNotifier
 
     public override void Zaladuj(double masa)
     {
-        base.Zaladuj(masa);
+        if (MaxLadownosc<MasaLadunku+masa)
+        {
+            throw new OverfillException();
+        };
         
         if (CzyBezpieczny)
         {
